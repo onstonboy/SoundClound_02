@@ -1,5 +1,8 @@
 package com.framgia.soundcloud_2.data.model;
 
+import android.database.Cursor;
+
+import com.framgia.soundcloud_2.utils.DatabaseManager;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -11,6 +14,9 @@ public class User {
     @SerializedName("username")
     private String mUserName;
 
+    public User(Cursor cursor){
+        mUserName = cursor.getString(cursor.getColumnIndex(DatabaseManager.COLUMN_USER));
+    }
     public int getId() {
         return mId;
     }

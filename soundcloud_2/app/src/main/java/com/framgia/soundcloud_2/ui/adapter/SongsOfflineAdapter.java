@@ -1,0 +1,75 @@
+package com.framgia.soundcloud_2.ui.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.framgia.soundcloud_2.R;
+import com.framgia.soundcloud_2.data.model.Track;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Created by tri on 02/02/2017.
+ */
+public class SongsOfflineAdapter
+    extends RecyclerView.Adapter<SongsOfflineAdapter.SongsOfflineViewHolder> {
+    private List<Track> mListTracks;
+    private LayoutInflater mLayoutInflater;
+    private ItemClickListener mClickListener;
+
+    public SongsOfflineAdapter(Context context, List<Track> list, ItemClickListener clickListener) {
+        mListTracks = list;
+        mLayoutInflater = LayoutInflater.from(context);
+        mClickListener = mClickListener;
+    }
+
+    @Override
+    public SongsOfflineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView =
+            mLayoutInflater.inflate(R.layout.item_songs_offline, parent, false);
+        return new SongsOfflineViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(SongsOfflineViewHolder holder, int position) {
+        holder.bindData(mListTracks.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mListTracks != null ? mListTracks.size() : 0;
+    }
+
+    public interface ItemClickListener {
+        void onClick(View view, int position);
+    }
+
+    public class SongsOfflineViewHolder extends RecyclerView.ViewHolder
+        implements View.OnClickListener {
+        @BindView(R.id.text_songs_offline_title)
+        TextView mAudioTitle;
+
+        public SongsOfflineViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bindData(Track track) {
+            if (track == null || track.getTitle() == null) return;
+            mAudioTitle.setText(track.getTitle());
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onClick(view, getAdapterPosition());
+        }
+    }
+}

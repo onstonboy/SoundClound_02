@@ -1,5 +1,8 @@
 package com.framgia.soundcloud_2.data.model;
 
+import android.database.Cursor;
+
+import com.framgia.soundcloud_2.utils.DatabaseManager;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -22,6 +25,17 @@ public class Track {
     private String mTitle;
     @SerializedName("user")
     private User mUser;
+
+    public Track(Cursor cursor) {
+        mUser = new User(cursor);
+        mArtworkUrl = cursor.getString(cursor.getColumnIndex(DatabaseManager.COLUMN_ARTWORK_URL));
+        mDuration = cursor.getInt(cursor.getColumnIndex(DatabaseManager.COLUMN_DURATION));
+        mId = cursor.getInt(cursor.getColumnIndex(DatabaseManager.COLUMN_ID));
+        mUri = cursor.getString(cursor.getColumnIndex(DatabaseManager.COLUMN_URI));
+        mPlaybackCount =
+            cursor.getDouble(cursor.getColumnIndex(DatabaseManager.COLUMN_PLAYBACK_COUNT));
+        mTitle = cursor.getString(cursor.getColumnIndex(DatabaseManager.COLUMN_TITLE));
+    }
 
     public String getArtworkUrl() {
         return mArtworkUrl;
