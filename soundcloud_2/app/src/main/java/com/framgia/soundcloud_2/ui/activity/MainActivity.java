@@ -14,24 +14,27 @@ import com.framgia.soundcloud_2.ui.adapter.ViewPagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainContract.View {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    private MainContract.Presenter mMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initView();
+        setPresenter(new MainPresenter(this));
+        mMainPresenter.start();
         setupToolbar();
     }
 
-    public void initView() {
+    @Override
+    public void start() {
         FragmentManager manager = getSupportFragmentManager();
         ViewPagerAdapter adapter = new ViewPagerAdapter(manager, this);
         mViewPager.setAdapter(adapter);
@@ -44,5 +47,10 @@ public class MainActivity extends AppCompatActivity {
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setTitle(R.string.app_name);
         setSupportActionBar(mToolbar);
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        mMainPresenter = presenter;
     }
 }
