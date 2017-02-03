@@ -14,4 +14,6 @@
     <dimen name="sp_15">15sp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_170">170dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
 </resources>
