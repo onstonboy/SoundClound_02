@@ -25,7 +25,7 @@
             android:id="@+id/text_songs_offline_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_5"
             android:maxLines="1"
             android:textColor="@android:color/black"
             android:textSize="@dimen/sp_17"/>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_album_art"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_250"
+        android:layout_margin="@dimen/dp_40"
+        android:background="@drawable/ic_songs"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/text_songs_title"
+        style="@style/TextDetailSongs"
+        android:textSize="@dimen/sp_25"/>
+
+    <TextView
+        android:id="@+id/text_artist_name"
+        style="@style/TextDetailSongs"
+        android:textSize="@dimen/sp_15"/>
+
+    <LinearLayout
+        android:id="@+id/linear_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_duration"
+            style="@style/TextDurationDetailSongs"
+            android:layout_marginLeft="@dimen/dp_10"/>
+
+        <SeekBar
+            android:id="@+id/seekbar_songs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_full_duration"
+            style="@style/TextDurationDetailSongs"
+            android:layout_marginRight="@dimen/dp_10"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_control"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:background="@color/color_blue"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/image_play_previous"
+            style="@style/ImageButtonDetailSongs"
+            android:src="@android:drawable/ic_media_previous"/>
+
+        <ImageButton
+            android:id="@+id/image_play_pause"
+            style="@style/ImageButtonDetailSongs"
+            android:src="@android:drawable/ic_media_play"/>
+
+        <ImageButton
+            android:id="@+id/image_play_next"
+            style="@style/ImageButtonDetailSongs"
+            android:src="@android:drawable/ic_media_next"/>
+
+    </LinearLayout>
+
+</LinearLayout>

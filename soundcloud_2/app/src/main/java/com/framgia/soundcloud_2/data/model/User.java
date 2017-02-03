@@ -14,9 +14,10 @@ public class User {
     @SerializedName("username")
     private String mUserName;
 
-    public User(Cursor cursor){
+    public User(Cursor cursor) {
         mUserName = cursor.getString(cursor.getColumnIndex(DatabaseManager.COLUMN_USER));
     }
+
     public int getId() {
         return mId;
     }

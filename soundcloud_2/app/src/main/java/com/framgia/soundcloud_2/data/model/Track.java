@@ -15,6 +15,8 @@ public class Track {
     private boolean mDownloadAble;
     @SerializedName("duration")
     private int mDuration;
+    @SerializedName("full_duration")
+    private int mFullDuration;
     @SerializedName("id")
     private int mId;
     @SerializedName("uri")
@@ -99,5 +101,13 @@ public class Track {
 
     public void setUser(User user) {
         mUser = user;
+    }
+
+    public int getFullDuration() {
+        return mFullDuration;
+    }
+
+    public void setFullDuration(int fullDuration) {
+        mFullDuration = fullDuration;
     }
 }
