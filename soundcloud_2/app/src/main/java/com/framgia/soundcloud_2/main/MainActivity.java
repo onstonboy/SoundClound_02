@@ -1,4 +1,4 @@
-package com.framgia.soundcloud_2.ui.activity;
+package com.framgia.soundcloud_2.main;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.framgia.soundcloud_2.R;
-import com.framgia.soundcloud_2.ui.adapter.ViewPagerAdapter;
+import com.framgia.soundcloud_2.adapter.ViewPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

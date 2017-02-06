@@ -1,4 +1,4 @@
-package com.framgia.soundcloud_2.ui.activity;
+package com.framgia.soundcloud_2.main;
 
 /**
  * Created by tri on 02/02/2017.

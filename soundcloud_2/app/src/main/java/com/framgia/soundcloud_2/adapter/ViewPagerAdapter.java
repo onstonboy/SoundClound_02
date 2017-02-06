@@ -1,4 +1,4 @@
-package com.framgia.soundcloud_2.ui.adapter;
+package com.framgia.soundcloud_2.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.framgia.soundcloud_2.R;
-import com.framgia.soundcloud_2.ui.fragment.CategorySongsFragment;
-import com.framgia.soundcloud_2.ui.fragment.LocalSongsFragment;
+import com.framgia.soundcloud_2.categorysong.CategorySongsFragment;
+import com.framgia.soundcloud_2.localsong.LocalSongsFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private static final int POSITON_CATEGORY = 0;

@@ -1,4 +1,4 @@
-package com.framgia.soundcloud_2.ui.activity;
+package com.framgia.soundcloud_2.main;
 
 import com.framgia.soundcloud_2.BasePresenter;
 import com.framgia.soundcloud_2.BaseView;
