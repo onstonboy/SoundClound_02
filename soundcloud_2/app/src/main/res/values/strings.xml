@@ -3,4 +3,6 @@
     <string name="title_category">Category</string>
     <string name="title_local">Local</string>
     <string name="error_get_song_fail">Get Song Error</string>
+    <string name="message_access_denied">Access Denied</string>
+    <string name="message_no_data_available">No Data Available</string>
 </resources>

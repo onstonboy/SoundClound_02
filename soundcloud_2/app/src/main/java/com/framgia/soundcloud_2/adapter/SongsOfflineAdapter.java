@@ -51,10 +51,6 @@ public class SongsOfflineAdapter
         return mListTracks != null ? mListTracks.size() : 0;
     }
 
-    public void setClickListener(ItemClickListener itemClickListener) {
-        mClickListener = itemClickListener;
-    }
-
     public interface ItemClickListener {
         void onClick(int position);
     }
