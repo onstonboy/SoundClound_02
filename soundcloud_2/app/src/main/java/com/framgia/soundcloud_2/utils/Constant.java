@@ -12,4 +12,17 @@ public class Constant {
             R.drawable.ic_dance_edm
         };
     }
+
+    public static class KeyIntent {
+        public static final String EXTRA_CATEGORY = "category";
+    }
+
+    public static class ConstantApi {
+        public static final String URL_SOUNDCLOUD = "https://api-v2.soundcloud.com/";
+        public static final String PATH_SONG = "charts";
+        public static final String PARAM_CLIENT_ID = "client_id";
+        public static final String PARAM_GENRE = "genre";
+        public static final String PARAM_KIND = "kind";
+        public static final String VALUE_KIND_TOP = "top";
+    }
 }

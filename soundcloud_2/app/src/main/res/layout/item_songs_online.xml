@@ -17,8 +17,7 @@
         <ImageView
             android:id="@+id/image_songs_icon"
             android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:src="@drawable/ic_songs"/>
+            android:layout_height="@dimen/dp_50"/>
 
         <LinearLayout
             android:layout_width="match_parent"

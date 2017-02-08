@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.CategoryAdapter;
 import com.framgia.soundcloud_2.data.model.Category;
+import com.framgia.soundcloud_2.listsong.ListSongActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class CategorySongsFragment extends Fragment
 
     @Override
     public void onClick(View view, int position) {
-        // TODO: click item
+        startActivity(ListSongActivity.getListSongItent(getActivity(), mCategories.get(position)));
     }
 
     @Override
