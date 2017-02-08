@@ -30,6 +30,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final int TRUE = 1;
     private static final int FALSE = 0;
     private SQLiteDatabase mDatabase;
+    private static DatabaseManager sDatabaseManager;
+
+    public static synchronized DatabaseManager getInstance(Context context) {
+        if (sDatabaseManager == null) {
+            sDatabaseManager = new DatabaseManager(context.getApplicationContext());
+        }
+        return sDatabaseManager;
+    }
 
     public DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -66,7 +74,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
             for (Track track : list) {
                 if (track.getUser().getUserName() == null) return;
                 ContentValues values = new ContentValues();
-                values.put(COLUMN_ID, track.getId());
                 values.put(COLUMN_TITLE, track.getTitle());
                 values.put(COLUMN_ARTWORK_URL, track.getArtworkUrl());
                 values.put(COLUMN_DOWNLOADABLE, track.isDownloadAble() ? TRUE : FALSE);
@@ -75,6 +82,24 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 values.put(COLUMN_USER, track.getUser().getUserName());
                 values.put(COLUMN_PLAYBACK_COUNT, track.getPlaybackCount());
                 mDatabase.insertOrThrow(TABLE_TRACK, null, values);
+            }
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+    }
+
+    public void addListTrackLocal(List<Track> list) {
+        if (list == null) return;
+        open();
+        try {
+            for (Track track : list) {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_TITLE, track.getTitle());
+                values.put(COLUMN_DURATION, track.getDuration());
+                values.put(COLUMN_URI, track.getUri());
+                mDatabase.insert(TABLE_TRACK, null, values);
             }
         } catch (SQLiteException e) {
             e.printStackTrace();

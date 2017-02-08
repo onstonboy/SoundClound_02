@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".listsong.ListSongActivity"/>
+        <service android:name=".service.PlayerService"/>
     </application>
 
 </manifest>

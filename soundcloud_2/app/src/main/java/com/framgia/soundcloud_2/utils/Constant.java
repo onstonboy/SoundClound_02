@@ -6,6 +6,7 @@ public class Constant {
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
     public static final String CHECK_MUSIC = "!= 0";
     public static final String SORT_MUSIC = " ASC";
+
     public static class ResourceImage {
         public static int[] IMAGE_CATEGORY = {
             R.drawable.ic_altinaterock,
@@ -18,6 +19,13 @@ public class Constant {
 
     public static class KeyIntent {
         public static final String EXTRA_CATEGORY = "category";
+        public static final String ACTION_UPDATE_CONTROL = "com.soundcloud_2.action.ACTION_UPDATE_CONTROL";
+        public static final String ACTION_PLAY_NEW_AUDIO = "com.soundcloud_2.action.ACTION_PLAY_NEW_AUDIO";
+        public static final String ACTION_PLAY = "com.soundcloud_2.action.ACTION_PLAY";
+        public static final String ACTION_PAUSE = "com.soundcloud_2.action.ACTION_PAUSE";
+        public static final String ACTION_STOP = "com.soundcloud_2.action.ACTION_STOP";
+        public static final String ACTION_PREVIOUS = "com.soundcloud_2.action.ACTION_PREVIOUS";
+        public static final String ACTION_NEXT = "com.soundcloud_2.action.ACTION_NEXT";
     }
 
     public static class ConstantApi {
