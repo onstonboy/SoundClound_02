@@ -1,5 +1,6 @@
 package com.framgia.soundcloud_2.utils;
 
+import com.framgia.soundcloud_2.BuildConfig;
 import com.framgia.soundcloud_2.R;
 
 public class Constant {
@@ -24,5 +25,10 @@ public class Constant {
         public static final String PARAM_GENRE = "genre";
         public static final String PARAM_KIND = "kind";
         public static final String VALUE_KIND_TOP = "top";
+        public static final String STREAM_URL = "/stream?client_id" + "=" + BuildConfig.API_KEY;
+    }
+
+    public class RequestCode {
+        public static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
     }
 }

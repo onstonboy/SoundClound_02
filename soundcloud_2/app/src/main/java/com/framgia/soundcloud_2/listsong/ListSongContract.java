@@ -11,6 +11,7 @@ public interface ListSongContract {
     interface View extends BaseView<Presenter> {
         void showSong(List<Track> list);
         void showError();
+        void checkPermissionDownload();
     }
 
     interface Presenter extends BasePresenter {
