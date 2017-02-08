@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/activity_list_song"
+    android:id="@+id/linear_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.framgia.soundcloud_2.listsong.ListSongActivity">
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
@@ -14,6 +12,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_listsong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/control_contain"
+        layout="@layout/layout_playsongs_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
