@@ -5,6 +5,8 @@ import android.database.Cursor;
 import com.framgia.soundcloud_2.utils.DatabaseManager;
 import com.google.gson.annotations.SerializedName;
 
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.STREAM_URL;
+
 /**
  * Created by tri on 02/02/2017.
  */
@@ -112,5 +114,9 @@ public class Track {
 
     public void setFullDuration(int fullDuration) {
         mFullDuration = fullDuration;
+    }
+
+    public String getFullUri() {
+        return getUri() + STREAM_URL;
     }
 }

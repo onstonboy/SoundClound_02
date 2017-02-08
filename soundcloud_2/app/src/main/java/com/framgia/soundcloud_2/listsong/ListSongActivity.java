@@ -1,9 +1,13 @@
 package com.framgia.soundcloud_2.listsong;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +19,7 @@ import com.framgia.soundcloud_2.adapter.SongOnlineAdapter;
 import com.framgia.soundcloud_2.data.SongRepository;
 import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.Track;
+import com.framgia.soundcloud_2.service.SongDownloadManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_CATEGORY;
+import static com.framgia.soundcloud_2.utils.Constant.RequestCode.REQUEST_CODE_WRITE_EXTERNAL_STORAGE;
 
 public class ListSongActivity extends AppCompatActivity implements ListSongContract.View,
     SongOnlineAdapter.ItemClickListener {
@@ -32,6 +38,7 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     private ListSongContract.Presenter mPresenter;
     private SongOnlineAdapter mSongOnlineAdapter;
     private List<Track> mTracks = new ArrayList<>();
+    private SongDownloadManager mDownloadSong;
 
     public static Intent getListSongItent(Context context, Category category) {
         Intent intent = new Intent(context, ListSongActivity.class);
@@ -68,7 +75,8 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
 
     @Override
     public void onClick(int position, Track track) {
-        // TODO : item click
+        mDownloadSong = new SongDownloadManager(this, track.getTitle(), track.getFullUri());
+        checkPermissionDownload();
     }
 
     @Override
@@ -79,8 +87,29 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[],
+                                           int[] grantResults) {
+        if (requestCode != REQUEST_CODE_WRITE_EXTERNAL_STORAGE) return;
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (mDownloadSong == null) return;
+            mDownloadSong.startDownload();
+        } else Toast.makeText(this, R.string.message_access_denied,
+            Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showError() {
         Toast.makeText(this, R.string.error_get_song_fail, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void checkPermissionDownload() {
+        int result =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED)
+            mDownloadSong.startDownload();
+        else ActivityCompat.requestPermissions(this, new String[]{Manifest.permission
+            .WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
     }
 
     @Override
