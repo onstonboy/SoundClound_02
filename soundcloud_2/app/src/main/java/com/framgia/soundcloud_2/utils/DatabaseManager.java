@@ -29,18 +29,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "SoundCloud";
     private static final int TRUE = 1;
     private static final int FALSE = 0;
-    private SQLiteDatabase mDatabase;
     private static DatabaseManager sDatabaseManager;
+    private SQLiteDatabase mDatabase;
+
+    public DatabaseManager(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public static synchronized DatabaseManager getInstance(Context context) {
         if (sDatabaseManager == null) {
             sDatabaseManager = new DatabaseManager(context.getApplicationContext());
         }
         return sDatabaseManager;
-    }
-
-    public DatabaseManager(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

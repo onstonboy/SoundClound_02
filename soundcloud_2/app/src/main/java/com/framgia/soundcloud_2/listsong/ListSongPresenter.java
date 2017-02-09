@@ -12,15 +12,30 @@ public class ListSongPresenter implements ListSongContract.Presenter {
     private ListSongContract.View mView;
     private DataSource mDataSource;
 
-    public ListSongPresenter(@NonNull ListSongContract.View listSongView, DataSource dataSource) {
+    public ListSongPresenter(@NonNull ListSongContract.View listSongView,
+                             DataSource songDataSource) {
         mView = listSongView;
         mView.setPresenter(this);
-        mDataSource = dataSource;
+        mDataSource = songDataSource;
     }
 
     @Override
     public void getSongFromApi(Category category) {
-        mDataSource.getDatas(category, null, new DataSource.GetCallback<Track>() {
+        mDataSource.getDatas(category, new DataSource.GetCallback<Track>() {
+            @Override
+            public void onLoaded(List<Track> datas) {
+                mView.showSong(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+            }
+        });
+    }
+
+    @Override
+    public void getSongFromSearch(String query) {
+        mDataSource.searchData(query, new DataSource.GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 mView.showSong(datas);
@@ -34,16 +49,9 @@ public class ListSongPresenter implements ListSongContract.Presenter {
     }
 
     @Override
-    public void getSongFromSearch(String query) {
-        //TODO : get song from search api
-    }
-
-    @Override
     public void getSong(Category category, String query) {
-        if (category != null) getSongFromApi(category);
-        else {
-            //TODO : call getSongFromSearch();
-        }
+        if (category == null) getSongFromSearch(query);
+        else getSongFromApi(category);
     }
 
     @Override

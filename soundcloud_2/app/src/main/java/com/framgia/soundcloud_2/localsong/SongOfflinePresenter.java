@@ -21,7 +21,7 @@ public class SongOfflinePresenter implements SongOfflineContract.Presenter {
 
     @Override
     public void getSongOffline() {
-        mLocalDataRepository.getDatas(null, null, new DataSource.GetCallback<Track>() {
+        mLocalDataRepository.getDatas(null, new DataSource.GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 mView.showSongOffline(datas);

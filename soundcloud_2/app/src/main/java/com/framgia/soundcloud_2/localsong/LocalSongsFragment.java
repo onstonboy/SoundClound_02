@@ -46,6 +46,10 @@ public class LocalSongsFragment extends Fragment
     private List<Track> mTracks = new ArrayList<>();
     private DatabaseManager mDatabaseManager;
 
+    public static LocalSongsFragment newInstance() {
+        return new LocalSongsFragment();
+    }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local_songs, container, false);
@@ -55,10 +59,6 @@ public class LocalSongsFragment extends Fragment
         mSongOfflinePresenter.start();
         verifyPermissions();
         return view;
-    }
-
-    public static LocalSongsFragment newInstance() {
-        return new LocalSongsFragment();
     }
 
     @Override

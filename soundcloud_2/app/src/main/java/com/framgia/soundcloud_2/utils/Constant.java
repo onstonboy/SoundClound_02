@@ -52,8 +52,10 @@ public class Constant {
 
     public static class KeyIntent {
         public static final String EXTRA_CATEGORY = "category";
-        public static final String ACTION_UPDATE_CONTROL = "com.soundcloud_2.action.ACTION_UPDATE_CONTROL";
-        public static final String ACTION_PLAY_NEW_AUDIO = "com.soundcloud_2.action.ACTION_PLAY_NEW_AUDIO";
+        public static final String ACTION_UPDATE_CONTROL =
+            "com.soundcloud_2.action.ACTION_UPDATE_CONTROL";
+        public static final String ACTION_PLAY_NEW_AUDIO =
+            "com.soundcloud_2.action.ACTION_PLAY_NEW_AUDIO";
         public static final String ACTION_PLAY = "com.soundcloud_2.action.ACTION_PLAY";
         public static final String ACTION_PAUSE = "com.soundcloud_2.action.ACTION_PAUSE";
         public static final String ACTION_STOP = "com.soundcloud_2.action.ACTION_STOP";
@@ -65,7 +67,6 @@ public class Constant {
         public static final String PARAM_QUERY = "q";
         public static final String PATH_SEARCH = "search/tracks";
         public static final String EXTRA_QUERY = "query";
-        public static final String EXTRA_TITLE = "title";
         public static final String URL_SOUNDCLOUD = "https://api-v2.soundcloud.com/";
         public static final String PATH_SONG = "charts";
         public static final String PARAM_CLIENT_ID = "client_id";
