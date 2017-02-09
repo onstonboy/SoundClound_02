@@ -23,8 +23,9 @@ public class SongRepository implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(final Category category, final GetCallback<Track> getCallback) {
-        mSongRemoteDataSource.getDatas(category, new GetCallback<Track>() {
+    public void getDatas(final Category category, final String query, final GetCallback<Track>
+        getCallback) {
+        mSongRemoteDataSource.getDatas(category, query, new GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 getCallback.onLoaded(datas);

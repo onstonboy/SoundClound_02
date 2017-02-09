@@ -40,7 +40,7 @@ public class SongRemoteDataSource implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(Category category, final GetCallback<Track> getCallback) {
+    public void getDatas(Category category,String query, final GetCallback<Track> getCallback) {
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_CLIENT_ID, BuildConfig.API_KEY);
         params.put(PARAM_GENRE, category.getCategoryParam());

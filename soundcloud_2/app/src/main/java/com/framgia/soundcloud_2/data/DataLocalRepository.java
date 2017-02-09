@@ -14,7 +14,8 @@ public class DataLocalRepository implements DataSource<Track> {
 
     public static DataLocalRepository getInstance(Context context) {
         if (sDataLocalRepository == null)
-            sDataLocalRepository = new DataLocalRepository(SongLocalDataSource.getInstance(context));
+            sDataLocalRepository =
+                new DataLocalRepository(SongLocalDataSource.getInstance(context));
         return sDataLocalRepository;
     }
 
@@ -23,8 +24,8 @@ public class DataLocalRepository implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(Category category, final GetCallback<Track> getCallback) {
-        mLocalDataSource.getDatas(category, new GetCallback<Track>() {
+    public void getDatas(Category category, String query, final GetCallback<Track> getCallback) {
+        mLocalDataSource.getDatas(category, query, new GetCallback<Track>() {
             @Override
             public void onNotAvailable() {
                 getCallback.onNotAvailable();

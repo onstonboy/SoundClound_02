@@ -32,7 +32,7 @@ public class SongLocalDataSource implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(Category category, GetCallback<Track> getCallback) {
+    public void getDatas(Category category, String query, GetCallback<Track> getCallback) {
         ArrayList<Track> tracksList = new ArrayList<>();
         ContentResolver contentResolver = mContext.getContentResolver();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;

@@ -7,6 +7,7 @@ public class Constant {
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
     public static final String CHECK_MUSIC = "!= 0";
     public static final String SORT_MUSIC = " ASC";
+
     public static class ResourceImage {
         public static int[] IMAGE_CATEGORY = {
             R.drawable.ic_altinaterock,
@@ -54,6 +55,10 @@ public class Constant {
     }
 
     public static class ConstantApi {
+        public static final String PARAM_QUERY = "q";
+        public static final String PATH_SEARCH = "search/tracks";
+        public static final String EXTRA_QUERY = "query";
+        public static final String EXTRA_TITLE = "title";
         public static final String URL_SOUNDCLOUD = "https://api-v2.soundcloud.com/";
         public static final String PATH_SONG = "charts";
         public static final String PARAM_CLIENT_ID = "client_id";
