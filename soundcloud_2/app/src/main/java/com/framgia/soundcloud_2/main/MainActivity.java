@@ -6,15 +6,20 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.ViewPagerAdapter;
+import com.framgia.soundcloud_2.listsong.ListSongActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends AppCompatActivity
+    implements MainContract.View, SearchView.OnQueryTextListener {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
@@ -50,7 +55,28 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mMainPresenter = presenter;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        startActivity(ListSongActivity.getSongFromSearch(this, query));
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

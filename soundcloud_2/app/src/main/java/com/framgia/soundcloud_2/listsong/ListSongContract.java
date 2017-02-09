@@ -16,5 +16,7 @@ public interface ListSongContract {
 
     interface Presenter extends BasePresenter {
         void getSongFromApi(Category category);
+        void getSongFromSearch(String query);
+        void getSong(Category category, String query);
     }
 }

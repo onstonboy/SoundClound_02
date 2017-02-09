@@ -20,7 +20,7 @@ public class ListSongPresenter implements ListSongContract.Presenter {
 
     @Override
     public void getSongFromApi(Category category) {
-        mDataSource.getDatas(category, new DataSource.GetCallback<Track>() {
+        mDataSource.getDatas(category, null, new DataSource.GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 mView.showSong(datas);
@@ -31,6 +31,19 @@ public class ListSongPresenter implements ListSongContract.Presenter {
                 mView.showError();
             }
         });
+    }
+
+    @Override
+    public void getSongFromSearch(String query) {
+        //TODO : get song from search api
+    }
+
+    @Override
+    public void getSong(Category category, String query) {
+        if (category != null) getSongFromApi(category);
+        else {
+            //TODO : call getSongFromSearch();
+        }
     }
 
     @Override

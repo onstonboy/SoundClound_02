@@ -1,6 +1,7 @@
 package com.framgia.soundcloud_2.service;
 
 import com.framgia.soundcloud_2.data.model.AudioResponse;
+import com.framgia.soundcloud_2.data.model.SearchAudioResult;
 
 import java.util.Map;
 
@@ -20,6 +21,12 @@ public abstract class API {
     public static void getSong(Map<String, String> params,
                                Callback<AudioResponse> callback) {
         sAPIServices.getAudio(params)
+            .enqueue(callback);
+    }
+
+    public static void getSongSearchResult(Map<String, String> params,
+                                           Callback<SearchAudioResult> callback) {
+        sAPIServices.getSearchResult(params)
             .enqueue(callback);
     }
 }
