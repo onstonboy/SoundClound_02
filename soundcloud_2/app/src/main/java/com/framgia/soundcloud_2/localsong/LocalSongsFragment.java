@@ -1,5 +1,6 @@
 package com.framgia.soundcloud_2.localsong;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,7 +19,9 @@ import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.SongsOfflineAdapter;
 import com.framgia.soundcloud_2.data.DataLocalRepository;
 import com.framgia.soundcloud_2.data.model.Track;
+import com.framgia.soundcloud_2.service.PlayerService;
 import com.framgia.soundcloud_2.utils.Constant;
+import com.framgia.soundcloud_2.utils.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY_NEW_AUDIO;
+import static com.framgia.soundcloud_2.utils.StorePreferences.storeAudioIndex;
 
 public class LocalSongsFragment extends Fragment
     implements SongOfflineContract.View, SwipeRefreshLayout
@@ -39,6 +44,7 @@ public class LocalSongsFragment extends Fragment
     private SongsOfflineAdapter mSongOfflineAdapter;
     private SongOfflineContract.Presenter mSongOfflinePresenter;
     private List<Track> mTracks = new ArrayList<>();
+    private DatabaseManager mDatabaseManager;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -77,6 +83,12 @@ public class LocalSongsFragment extends Fragment
     @Override
     public void playMusic(int songIndex) {
         // TODO: Play music
+        mDatabaseManager.getInstance(getActivity()).clearListTrack();
+        mDatabaseManager.getInstance(getActivity()).addListTrackLocal(mTracks);
+        storeAudioIndex(getActivity(), songIndex);
+        Intent intent = new Intent(getActivity(), PlayerService.class);
+        intent.setAction(ACTION_PLAY_NEW_AUDIO);
+        getActivity().startService(intent);
     }
 
     @Override
@@ -119,5 +131,6 @@ public class LocalSongsFragment extends Fragment
 
     @Override
     public void onClick(int position) {
+        playMusic(position);
     }
 }
