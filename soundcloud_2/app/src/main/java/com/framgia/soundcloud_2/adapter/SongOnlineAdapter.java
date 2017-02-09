@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by tri on 03/02/2017.
@@ -53,12 +54,9 @@ public class SongOnlineAdapter
         return mListTracks != null ? mListTracks.size() : 0;
     }
 
-    public void setClickListener(ItemClickListener itemClickListener) {
-        mClickListener = itemClickListener;
-    }
-
     public interface ItemClickListener {
-        void onClick(int position, Track track);
+        void onClick(int position);
+        void onDownloadListener(Track track);
     }
 
     public class SongOnlineViewHolder extends RecyclerView.ViewHolder
@@ -78,7 +76,6 @@ public class SongOnlineAdapter
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            mButtonDownload.setOnClickListener(this);
         }
 
         public void bindData(Track track) {
@@ -91,8 +88,12 @@ public class SongOnlineAdapter
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onClick(getAdapterPosition(),
-                mListTracks.get(getAdapterPosition()));
+            if (mClickListener != null) mClickListener.onClick(getAdapterPosition());
+        }
+
+        @OnClick(R.id.button_download)
+        public void onDownloadCLick() {
+            mClickListener.onDownloadListener(mListTracks.get(getAdapterPosition()));
         }
     }
 }

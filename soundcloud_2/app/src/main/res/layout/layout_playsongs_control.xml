@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/color_blue"
+              android:background="@color/color_purple"
               android:orientation="horizontal"
               android:padding="@dimen/dp_5">
 
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/dp_5"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView

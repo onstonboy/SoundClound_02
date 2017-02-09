@@ -74,12 +74,6 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     }
 
     @Override
-    public void onClick(int position, Track track) {
-        mDownloadSong = new SongDownloadManager(this, track.getTitle(), track.getFullUri());
-        checkPermissionDownload();
-    }
-
-    @Override
     public void showSong(List<Track> list) {
         if (list == null) return;
         mTracks.addAll(list);
@@ -123,5 +117,17 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
         getIntentData();
         setupToolbar();
         mPresenter.getSongFromApi(mCategory);
+    }
+
+    @Override
+    public void onClick(int position) {
+        // TODO : item click
+    }
+
+    @Override
+    public void onDownloadListener(Track track) {
+        if (track == null) return;
+        mDownloadSong = new SongDownloadManager(this, track.getTitle(), track.getFullUri());
+        checkPermissionDownload();
     }
 }

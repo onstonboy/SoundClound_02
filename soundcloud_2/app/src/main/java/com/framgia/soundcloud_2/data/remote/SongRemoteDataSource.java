@@ -20,7 +20,9 @@ import retrofit2.Response;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_CLIENT_ID;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_GENRE;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_KIND;
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_LIMIT;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_KIND_TOP;
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
 
 /**
  * Created by tri on 07/02/2017.
@@ -43,6 +45,7 @@ public class SongRemoteDataSource implements DataSource<Track> {
         params.put(PARAM_CLIENT_ID, BuildConfig.API_KEY);
         params.put(PARAM_GENRE, category.getCategoryParam());
         params.put(PARAM_KIND, VALUE_KIND_TOP);
+        params.put(PARAM_LIMIT, VALUE_LIMIT);
         API.getSong(params, new Callback<AudioResponse>() {
                 @Override
                 public void onResponse(Call<AudioResponse> call, Response<AudioResponse> response) {
