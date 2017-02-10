@@ -52,15 +52,28 @@ public class Constant {
 
     public static class KeyIntent {
         public static final String EXTRA_CATEGORY = "category";
+        public static final String EXTRA_DURATION = "duration";
+        public static final String EXTRA_FULL_DURATION = "fullduration";
         public static final String ACTION_UPDATE_CONTROL =
             "com.soundcloud_2.action.ACTION_UPDATE_CONTROL";
-        public static final String ACTION_PLAY_NEW_AUDIO =
-            "com.soundcloud_2.action.ACTION_PLAY_NEW_AUDIO";
+        public static final String ACTION_PLAY_NEW_SONG =
+            "com.soundcloud_2.action.ACTION_PLAY_NEW_SONG";
         public static final String ACTION_PLAY = "com.soundcloud_2.action.ACTION_PLAY";
         public static final String ACTION_PAUSE = "com.soundcloud_2.action.ACTION_PAUSE";
         public static final String ACTION_STOP = "com.soundcloud_2.action.ACTION_STOP";
         public static final String ACTION_PREVIOUS = "com.soundcloud_2.action.ACTION_PREVIOUS";
         public static final String ACTION_NEXT = "com.soundcloud_2.action.ACTION_NEXT";
+        public static final String ACTION_FORWARD = "com.soundcloud_2.action.ACTION_FORWARD";
+        public static final String ACTION_BACKWARD = "com.soundcloud_2.action.ACTION_BACKWARD";
+        public static final String ACTION_REPEAT = "com.soundcloud_2.action.ACTION_REPEAT";
+        public static final String ACTION_NO_REPEAT = "com.soundcloud_2.action.ACTION_NO_REPEAT";
+        public static final String ACTION_SHUFFLE = "com.soundcloud_2.action.ACTION_SHUFFLE";
+        public static final String ACTION_NO_SHUFFLE = "com.soundcloud_2.action.ACTION_NO_SHUFFLE";
+        public static final String ACTION_GET_AUDIO_STATE =
+            "com.soundcloud_2.action.ACTION_GET_AUDIO_STATE";
+        public static final String ACTION_UPDATE_SEEK_BAR =
+            "com.soundcloud_2.action.ACTION_UPDATE_SEEK_BAR";
+        public static final String ACTION_SEEK_TO = "com.soundcloud_2.action.ACTION_SEEK_TO";
     }
 
     public static class ConstantApi {
