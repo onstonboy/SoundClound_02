@@ -28,7 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_QUERY;
-import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_TITLE;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_CATEGORY;
 import static com.framgia.soundcloud_2.utils.Constant.RequestCode.REQUEST_CODE_WRITE_EXTERNAL_STORAGE;
 
@@ -42,7 +41,6 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     private List<Track> mTracks = new ArrayList<>();
     private SongDownloadManager mDownloadSong;
     private String mQuery;
-    private String mTitleSearch;
 
     public static Intent getListSongItent(Context context, Category category) {
         Intent intent = new Intent(context, ListSongActivity.class);
@@ -53,7 +51,6 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     public static Intent getSongFromSearch(Context context, String query) {
         Intent intent = new Intent(context, ListSongActivity.class);
         intent.putExtra(EXTRA_QUERY, query);
-        intent.putExtra(EXTRA_TITLE, query);
         return intent;
     }
 
@@ -69,19 +66,20 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     private void getIntentData() {
         mCategory = getIntent().getParcelableExtra(EXTRA_CATEGORY);
         mQuery = getIntent().getStringExtra(EXTRA_QUERY);
-        mTitleSearch = getIntent().getStringExtra(EXTRA_TITLE);
-}
+    }
 
     public void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setTitle(mCategory.getCategoryTitle());
+        toolbar.setTitle(mCategory != null ? mCategory.getCategoryTitle() : mQuery);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mSongOnlineAdapter = new SongOnlineAdapter(this, mTracks, this);
         mRecyclerView.setAdapter(mSongOnlineAdapter);
     }

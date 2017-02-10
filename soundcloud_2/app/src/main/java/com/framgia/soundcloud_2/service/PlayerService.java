@@ -17,13 +17,14 @@ import com.framgia.soundcloud_2.utils.DatabaseManager;
 import java.io.IOException;
 import java.util.List;
 
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_CONTROL;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_NEXT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PAUSE;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY;;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PREVIOUS;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_STOP;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_CONTROL;
 import static com.framgia.soundcloud_2.utils.StorePreferences.loadAudioIndex;
+;
 
 /**
  * Created by Vinh on 04/02/2017.

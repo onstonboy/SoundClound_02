@@ -5,6 +5,7 @@ import com.framgia.soundcloud_2.data.DataSource;
 import com.framgia.soundcloud_2.data.model.AudioResponse;
 import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.CollectionTrack;
+import com.framgia.soundcloud_2.data.model.SearchAudioResult;
 import com.framgia.soundcloud_2.data.model.Track;
 import com.framgia.soundcloud_2.service.API;
 
@@ -21,6 +22,7 @@ import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_CLIENT_I
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_GENRE;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_KIND;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_LIMIT;
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_QUERY;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_KIND_TOP;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
 
@@ -40,7 +42,8 @@ public class SongRemoteDataSource implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(Category category,String query, final GetCallback<Track> getCallback) {
+    public void getDatas(final Category category, final GetCallback<Track>
+        getCallback) {
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_CLIENT_ID, BuildConfig.API_KEY);
         params.put(PARAM_GENRE, category.getCategoryParam());
@@ -66,5 +69,30 @@ public class SongRemoteDataSource implements DataSource<Track> {
                 }
             }
         );
+    }
+
+    @Override
+    public void searchData(final String query, final GetCallback<Track> getCallback) {
+        Map<String, String> params = new HashMap<>();
+        params.put(PARAM_CLIENT_ID, BuildConfig.API_KEY);
+        params.put(PARAM_LIMIT, VALUE_LIMIT);
+        params.put(PARAM_QUERY, query);
+        API.getSongSearchResult(params, new Callback<SearchAudioResult>() {
+            @Override
+            public void onResponse(Call<SearchAudioResult> call,
+                                   Response<SearchAudioResult> response) {
+                if (response == null) {
+                    getCallback.onNotAvailable();
+                    return;
+                }
+                getCallback
+                    .onLoaded(response.body().getTracks());
+            }
+
+            @Override
+            public void onFailure(Call<SearchAudioResult> call, Throwable t) {
+                getCallback.onNotAvailable();
+            }
+        });
     }
 }
