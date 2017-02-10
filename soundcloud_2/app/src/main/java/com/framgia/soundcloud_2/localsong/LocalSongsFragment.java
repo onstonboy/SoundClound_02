@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY_NEW_AUDIO;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY_NEW_SONG;
 import static com.framgia.soundcloud_2.utils.StorePreferences.storeAudioIndex;
 
 public class LocalSongsFragment extends Fragment
@@ -87,7 +87,7 @@ public class LocalSongsFragment extends Fragment
         mDatabaseManager.getInstance(getActivity()).addListTrackLocal(mTracks);
         storeAudioIndex(getActivity(), songIndex);
         Intent intent = new Intent(getActivity(), PlayerService.class);
-        intent.setAction(ACTION_PLAY_NEW_AUDIO);
+        intent.setAction(ACTION_PLAY_NEW_SONG);
         getActivity().startService(intent);
     }
 
