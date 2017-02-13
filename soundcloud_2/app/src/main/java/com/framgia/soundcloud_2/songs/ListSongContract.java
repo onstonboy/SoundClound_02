@@ -1,4 +1,4 @@
-package com.framgia.soundcloud_2.listsong;
+package com.framgia.soundcloud_2.songs;
 
 import com.framgia.soundcloud_2.BasePresenter;
 import com.framgia.soundcloud_2.BaseView;
@@ -12,11 +12,13 @@ public interface ListSongContract {
         void showSong(List<Track> list);
         void showError();
         void checkPermissionDownload();
+        void showProgress(boolean show);
+        void addScrollViewListener();
     }
 
     interface Presenter extends BasePresenter {
-        void getSongFromApi(Category category);
-        void getSongFromSearch(String query);
-        void getSong(Category category, String query);
+        void getSongFromApi(Category category, int offset);
+        void getSongFromSearch(String query, int offset);
+        void getSong(Category category, String query, int offset);
     }
 }

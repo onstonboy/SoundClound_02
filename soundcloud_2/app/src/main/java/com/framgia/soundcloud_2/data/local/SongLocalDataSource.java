@@ -7,8 +7,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
-import com.framgia.soundcloud_2.data.DataSource;
-import com.framgia.soundcloud_2.data.model.Category;
+import com.framgia.soundcloud_2.data.GetCallback;
+import com.framgia.soundcloud_2.data.LocalDataSource;
 import com.framgia.soundcloud_2.data.model.Track;
 import com.framgia.soundcloud_2.utils.Constant;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by Vinh on 07/02/2017.
  */
-public class SongLocalDataSource implements DataSource<Track> {
+public class SongLocalDataSource implements LocalDataSource<Track> {
     private static SongLocalDataSource sSongLocalDataSource;
     private Context mContext;
 
@@ -32,7 +32,7 @@ public class SongLocalDataSource implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(Category category, GetCallback<Track> getCallback) {
+    public void getDatas(GetCallback<Track> getCallback) {
         ArrayList<Track> tracksList = new ArrayList<>();
         ContentResolver contentResolver = mContext.getContentResolver();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -52,10 +52,5 @@ public class SongLocalDataSource implements DataSource<Track> {
         }
         cursor.close();
         getCallback.onLoaded(tracksList);
-    }
-
-    @Override
-    public void searchData(String query, GetCallback<Track> getCallback) {
-        //  Not required
     }
 }

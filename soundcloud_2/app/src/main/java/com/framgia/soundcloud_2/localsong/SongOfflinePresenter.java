@@ -3,7 +3,7 @@ package com.framgia.soundcloud_2.localsong;
 import android.support.annotation.NonNull;
 
 import com.framgia.soundcloud_2.data.DataLocalRepository;
-import com.framgia.soundcloud_2.data.DataSource;
+import com.framgia.soundcloud_2.data.GetCallback;
 import com.framgia.soundcloud_2.data.model.Track;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SongOfflinePresenter implements SongOfflineContract.Presenter {
 
     @Override
     public void getSongOffline() {
-        mLocalDataRepository.getDatas(null, new DataSource.GetCallback<Track>() {
+        mLocalDataRepository.getDatas(new GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 mView.showSongOffline(datas);

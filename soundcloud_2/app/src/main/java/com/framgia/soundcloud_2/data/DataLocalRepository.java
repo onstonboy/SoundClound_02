@@ -3,14 +3,13 @@ package com.framgia.soundcloud_2.data;
 import android.content.Context;
 
 import com.framgia.soundcloud_2.data.local.SongLocalDataSource;
-import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.Track;
 
 import java.util.List;
 
-public class DataLocalRepository implements DataSource<Track> {
+public class DataLocalRepository implements LocalDataSource<Track> {
     private static DataLocalRepository sDataLocalRepository;
-    private DataSource mLocalDataSource;
+    private LocalDataSource mLocalDataSource;
 
     private DataLocalRepository(SongLocalDataSource songLocalDataSource) {
         mLocalDataSource = songLocalDataSource;
@@ -25,8 +24,8 @@ public class DataLocalRepository implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(final Category category, final GetCallback<Track> getCallback) {
-        mLocalDataSource.getDatas(category, new GetCallback<Track>() {
+    public void getDatas(final GetCallback<Track> getCallback) {
+        mLocalDataSource.getDatas(new GetCallback<Track>() {
             @Override
             public void onNotAvailable() {
                 getCallback.onNotAvailable();
@@ -37,10 +36,5 @@ public class DataLocalRepository implements DataSource<Track> {
                 getCallback.onLoaded(datas);
             }
         });
-    }
-
-    @Override
-    public void searchData(String query, GetCallback<Track> getCallback) {
-        //  Not required
     }
 }
