@@ -8,9 +8,9 @@ import com.framgia.soundcloud_2.data.remote.SongRemoteDataSource;
 
 import java.util.List;
 
-public class SongRepository implements DataSource<Track> {
+public class SongRepository implements SongDataSource<Track> {
     private static SongRepository sSongRepository;
-    private DataSource mSongRemoteDataSource;
+    private SongDataSource mSongRemoteDataSource;
 
     private SongRepository(SongRemoteDataSource songRemoteDataSource) {
         mSongRemoteDataSource = songRemoteDataSource;
@@ -24,8 +24,9 @@ public class SongRepository implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(final Category category, final GetCallback<Track> getCallback) {
-        mSongRemoteDataSource.getDatas(category, new GetCallback<Track>() {
+    public void getDatas(final Category category, final int offset,
+                         final GetCallback<Track> getCallback) {
+        mSongRemoteDataSource.getDatas(category, offset, new GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 getCallback.onLoaded(datas);
@@ -39,8 +40,9 @@ public class SongRepository implements DataSource<Track> {
     }
 
     @Override
-    public void searchData(final String query, final GetCallback<Track> getCallback) {
-        mSongRemoteDataSource.searchData(query, new GetCallback<Track>() {
+    public void searchData(final String query, final int offset,
+                           final GetCallback<Track> getCallback) {
+        mSongRemoteDataSource.searchData(query, offset, new GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
                 getCallback.onLoaded(datas);

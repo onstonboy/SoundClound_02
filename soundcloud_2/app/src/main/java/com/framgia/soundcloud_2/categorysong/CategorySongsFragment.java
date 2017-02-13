@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.CategoryAdapter;
 import com.framgia.soundcloud_2.data.model.Category;
-import com.framgia.soundcloud_2.listsong.ListSongActivity;
+import com.framgia.soundcloud_2.songs.ListSongActivity;
 
 import java.util.ArrayList;
 import java.util.List;

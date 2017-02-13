@@ -1,7 +1,8 @@
 package com.framgia.soundcloud_2.data.remote;
 
 import com.framgia.soundcloud_2.BuildConfig;
-import com.framgia.soundcloud_2.data.DataSource;
+import com.framgia.soundcloud_2.data.GetCallback;
+import com.framgia.soundcloud_2.data.SongDataSource;
 import com.framgia.soundcloud_2.data.model.AudioResponse;
 import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.CollectionTrack;
@@ -22,6 +23,7 @@ import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_CLIENT_I
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_GENRE;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_KIND;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_LIMIT;
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_OFFSET;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.PARAM_QUERY;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_KIND_TOP;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
@@ -29,7 +31,7 @@ import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
 /**
  * Created by tri on 07/02/2017.
  */
-public class SongRemoteDataSource implements DataSource<Track> {
+public class SongRemoteDataSource implements SongDataSource<Track> {
     private static SongRemoteDataSource sSongRemoteDataSource;
 
     private SongRemoteDataSource() {
@@ -42,13 +44,14 @@ public class SongRemoteDataSource implements DataSource<Track> {
     }
 
     @Override
-    public void getDatas(final Category category, final GetCallback<Track>
-        getCallback) {
+    public void getDatas(final Category category, final int offset,
+                         final GetCallback<Track> getCallback) {
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_CLIENT_ID, BuildConfig.API_KEY);
         params.put(PARAM_GENRE, category.getCategoryParam());
         params.put(PARAM_KIND, VALUE_KIND_TOP);
         params.put(PARAM_LIMIT, VALUE_LIMIT);
+        params.put(PARAM_OFFSET, String.valueOf(offset));
         API.getSong(params, new Callback<AudioResponse>() {
                 @Override
                 public void onResponse(Call<AudioResponse> call, Response<AudioResponse> response) {
@@ -72,11 +75,14 @@ public class SongRemoteDataSource implements DataSource<Track> {
     }
 
     @Override
-    public void searchData(final String query, final GetCallback<Track> getCallback) {
+    public void searchData(final String query, final int offset,
+                           final GetCallback<Track>
+                               getCallback) {
         Map<String, String> params = new HashMap<>();
         params.put(PARAM_CLIENT_ID, BuildConfig.API_KEY);
         params.put(PARAM_LIMIT, VALUE_LIMIT);
         params.put(PARAM_QUERY, query);
+        params.put(PARAM_OFFSET, String.valueOf(offset));
         API.getSongSearchResult(params, new Callback<SearchAudioResult>() {
             @Override
             public void onResponse(Call<SearchAudioResult> call,

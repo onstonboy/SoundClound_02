@@ -77,6 +77,7 @@ public class Constant {
     }
 
     public static class ConstantApi {
+        public static final String PARAM_OFFSET = "offset";
         public static final String PARAM_QUERY = "q";
         public static final String PATH_SEARCH = "search/tracks";
         public static final String EXTRA_QUERY = "query";
@@ -87,7 +88,7 @@ public class Constant {
         public static final String PARAM_KIND = "kind";
         public static final String VALUE_KIND_TOP = "top";
         public static final String PARAM_LIMIT = "limit";
-        public static final String VALUE_LIMIT = "50";
+        public static final String VALUE_LIMIT = "20";
         public static final String STREAM_URL = "/stream?client_id" + "=" + BuildConfig.API_KEY;
     }
 

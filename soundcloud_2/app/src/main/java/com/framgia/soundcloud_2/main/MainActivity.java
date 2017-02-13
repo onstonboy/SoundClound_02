@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.ViewPagerAdapter;
-import com.framgia.soundcloud_2.listsong.ListSongActivity;
+import com.framgia.soundcloud_2.songs.ListSongActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
