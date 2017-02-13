@@ -52,12 +52,20 @@ public class Constant {
 
     public static class KeyIntent {
         public static final String EXTRA_CATEGORY = "category";
+        public static final String EXTRA_MEDIA_STATE = "mediastate";
+        public static final String EXTRA_REPEAT_STATE = "repeatstate";
+        public static final String EXTRA_SHUFFLE_STATE = "shufflestate";
+        public static final String EXTRA_FORWARD = "forward";
+        public static final String EXTRA_BACKWARD = "backward";
         public static final String EXTRA_DURATION = "duration";
         public static final String EXTRA_FULL_DURATION = "fullduration";
         public static final String ACTION_UPDATE_CONTROL =
             "com.soundcloud_2.action.ACTION_UPDATE_CONTROL";
+        public static final String ACTION_UPDATE_CONTROL_DURATION = "ACTION_UPDATE_CONTROL_DURATION";
         public static final String ACTION_PLAY_NEW_SONG =
             "com.soundcloud_2.action.ACTION_PLAY_NEW_SONG";
+        public static final String ACTION_UPDATE_SONG = "com.soundcloud_2.action.ACTION_UPDATE_SONG";
+        public static final String ACTION_UPDATE_SONG_DURATION = "com.soundcloud_2.action.ACTION_UPDATE_SONG_DURATION";
         public static final String ACTION_PLAY = "com.soundcloud_2.action.ACTION_PLAY";
         public static final String ACTION_PAUSE = "com.soundcloud_2.action.ACTION_PAUSE";
         public static final String ACTION_STOP = "com.soundcloud_2.action.ACTION_STOP";
@@ -69,17 +77,21 @@ public class Constant {
         public static final String ACTION_NO_REPEAT = "com.soundcloud_2.action.ACTION_NO_REPEAT";
         public static final String ACTION_SHUFFLE = "com.soundcloud_2.action.ACTION_SHUFFLE";
         public static final String ACTION_NO_SHUFFLE = "com.soundcloud_2.action.ACTION_NO_SHUFFLE";
-        public static final String ACTION_GET_AUDIO_STATE =
-            "com.soundcloud_2.action.ACTION_GET_AUDIO_STATE";
+        public static final String ACTION_GET_SONG_STATE =
+            "com.soundcloud_2.action.ACTION_GET_SONG_STATE";
         public static final String ACTION_UPDATE_SEEK_BAR =
             "com.soundcloud_2.action.ACTION_UPDATE_SEEK_BAR";
         public static final String ACTION_SEEK_TO = "com.soundcloud_2.action.ACTION_SEEK_TO";
     }
 
     public static class ConstantApi {
+        public static final String PARAM_OFFSET = "offset";
         public static final String PARAM_QUERY = "q";
         public static final String PATH_SEARCH = "search/tracks";
         public static final String EXTRA_QUERY = "query";
+        public static final String EXTRA_TITLE = "title";
+        public static final String EXTRA_USER_NAME = "username";
+        public static final String EXTRA_IMAGE_URL = "imageurl";
         public static final String URL_SOUNDCLOUD = "https://api-v2.soundcloud.com/";
         public static final String PATH_SONG = "charts";
         public static final String PARAM_CLIENT_ID = "client_id";
@@ -87,7 +99,7 @@ public class Constant {
         public static final String PARAM_KIND = "kind";
         public static final String VALUE_KIND_TOP = "top";
         public static final String PARAM_LIMIT = "limit";
-        public static final String VALUE_LIMIT = "50";
+        public static final String VALUE_LIMIT = "20";
         public static final String STREAM_URL = "/stream?client_id" + "=" + BuildConfig.API_KEY;
     }
 

@@ -1,4 +1,4 @@
-package com.framgia.soundcloud_2.listsong;
+package com.framgia.soundcloud_2.songs;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.framgia.soundcloud_2.R;
@@ -28,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_QUERY;
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_CATEGORY;
 import static com.framgia.soundcloud_2.utils.Constant.RequestCode.REQUEST_CODE_WRITE_EXTERNAL_STORAGE;
 
@@ -35,12 +39,20 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     SongOnlineAdapter.ItemClickListener {
     @BindView(R.id.recycle_listsong)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progress)
+    ProgressBar mProgressBar;
     private Category mCategory;
     private ListSongContract.Presenter mPresenter;
     private SongOnlineAdapter mSongOnlineAdapter;
     private List<Track> mTracks = new ArrayList<>();
     private SongDownloadManager mDownloadSong;
     private String mQuery;
+    private int mOffSet;
+    private int mPastVisiblesItems;
+    private int mVisibleItemCount;
+    private int mTotalItemCount;
+    private boolean mUserScrolled = true;
+    private LinearLayoutManager mLinearLayoutManager;
 
     public static Intent getListSongItent(Context context, Category category) {
         Intent intent = new Intent(context, ListSongActivity.class);
@@ -77,11 +89,42 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     }
 
     private void initView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mSongOnlineAdapter = new SongOnlineAdapter(this, mTracks, this);
         mRecyclerView.setAdapter(mSongOnlineAdapter);
+        addScrollViewListener();
+    }
+
+    @Override
+    public void addScrollViewListener() {
+        mRecyclerView
+            .addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView,
+                                                 int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                        mUserScrolled = true;
+                    }
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx,
+                                       int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    mVisibleItemCount = mLinearLayoutManager.getChildCount();
+                    mTotalItemCount = mLinearLayoutManager.getItemCount();
+                    mPastVisiblesItems = mLinearLayoutManager
+                        .findFirstVisibleItemPosition();
+                    if (mUserScrolled
+                        && (mVisibleItemCount + mPastVisiblesItems) == mTotalItemCount) {
+                        mUserScrolled = false;
+                        mPresenter.getSong(mCategory, mQuery, mOffSet);
+                    }
+                }
+            });
     }
 
     @Override
@@ -118,6 +161,12 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     }
 
     @Override
+    public void showProgress(boolean show) {
+        if (show) mProgressBar.setVisibility(View.VISIBLE);
+        else mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void setPresenter(ListSongContract.Presenter presenter) {
         mPresenter = presenter;
     }
@@ -127,7 +176,7 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
         initView();
         getIntentData();
         setupToolbar();
-        mPresenter.getSong(mCategory, mQuery);
+        mPresenter.getSong(mCategory, mQuery, mOffSet);
     }
 
     @Override

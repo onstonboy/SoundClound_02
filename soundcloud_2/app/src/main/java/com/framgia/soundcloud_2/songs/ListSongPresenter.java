@@ -1,8 +1,9 @@
-package com.framgia.soundcloud_2.listsong;
+package com.framgia.soundcloud_2.songs;
 
 import android.support.annotation.NonNull;
 
-import com.framgia.soundcloud_2.data.DataSource;
+import com.framgia.soundcloud_2.data.GetCallback;
+import com.framgia.soundcloud_2.data.SongDataSource;
 import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.Track;
 
@@ -10,48 +11,55 @@ import java.util.List;
 
 public class ListSongPresenter implements ListSongContract.Presenter {
     private ListSongContract.View mView;
-    private DataSource mDataSource;
+    private SongDataSource mSongDataSource;
 
     public ListSongPresenter(@NonNull ListSongContract.View listSongView,
-                             DataSource songDataSource) {
+                             SongDataSource songDataSource) {
         mView = listSongView;
         mView.setPresenter(this);
-        mDataSource = songDataSource;
+        mSongDataSource = songDataSource;
     }
 
     @Override
-    public void getSongFromApi(Category category) {
-        mDataSource.getDatas(category, new DataSource.GetCallback<Track>() {
+    public void getSongFromApi(Category category, int offset) {
+        mView.showProgress(true);
+        mSongDataSource.getDatas(category, offset, new GetCallback<Track>() {
             @Override
             public void onLoaded(List<Track> datas) {
+                mView.showProgress(false);
                 mView.showSong(datas);
             }
 
             @Override
             public void onNotAvailable() {
-            }
-        });
-    }
-
-    @Override
-    public void getSongFromSearch(String query) {
-        mDataSource.searchData(query, new DataSource.GetCallback<Track>() {
-            @Override
-            public void onLoaded(List<Track> datas) {
-                mView.showSong(datas);
-            }
-
-            @Override
-            public void onNotAvailable() {
+                mView.showProgress(false);
                 mView.showError();
             }
         });
     }
 
     @Override
-    public void getSong(Category category, String query) {
-        if (category == null) getSongFromSearch(query);
-        else getSongFromApi(category);
+    public void getSongFromSearch(String query, int offset) {
+        mView.showProgress(true);
+        mSongDataSource.searchData(query, offset, new GetCallback<Track>() {
+            @Override
+            public void onLoaded(List<Track> datas) {
+                mView.showProgress(false);
+                mView.showSong(datas);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                mView.showProgress(false);
+                mView.showError();
+            }
+        });
+    }
+
+    @Override
+    public void getSong(Category category, String query, int offset) {
+        if (category == null) getSongFromSearch(query, offset);
+        else getSongFromApi(category, offset);
     }
 
     @Override
