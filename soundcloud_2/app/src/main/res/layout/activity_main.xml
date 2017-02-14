@@ -15,7 +15,7 @@
         android:layout_height="@dimen/dp_50"
         android:background="@color/color_purple"
         app:tabSelectedTextColor="@color/color_white"
-        app:tabTextColor="@color/color_blue"/>
+        app:tabTextColor="@color/colorAccent"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
