@@ -20,7 +20,8 @@
             android:id="@+id/image_songs_icon"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
-            android:background="@drawable/ic_songs"/>
+            android:background="@drawable/ic_songs"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/text_songs_offline_title"
