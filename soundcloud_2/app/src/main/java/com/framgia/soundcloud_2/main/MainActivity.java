@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,12 +12,13 @@ import android.view.MenuItem;
 
 import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.ViewPagerAdapter;
+import com.framgia.soundcloud_2.controlallscreen.BasePlayerActivity;
 import com.framgia.soundcloud_2.songs.ListSongActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BasePlayerActivity
     implements MainContract.View, SearchView.OnQueryTextListener {
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void start() {
+        super.start();
         FragmentManager manager = getSupportFragmentManager();
         ViewPagerAdapter adapter = new ViewPagerAdapter(manager, this);
         mViewPager.setAdapter(adapter);
