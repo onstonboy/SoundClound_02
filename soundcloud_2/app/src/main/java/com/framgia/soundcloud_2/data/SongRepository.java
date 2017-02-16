@@ -28,8 +28,8 @@ public class SongRepository implements SongDataSource<Track> {
                          final GetCallback<Track> getCallback) {
         mSongRemoteDataSource.getDatas(category, offset, new GetCallback<Track>() {
             @Override
-            public void onLoaded(List<Track> datas) {
-                getCallback.onLoaded(datas);
+            public void onLoaded(List<Track> datas, String nexthref) {
+                getCallback.onLoaded(datas, nexthref);
             }
 
             @Override
@@ -44,8 +44,8 @@ public class SongRepository implements SongDataSource<Track> {
                            final GetCallback<Track> getCallback) {
         mSongRemoteDataSource.searchData(query, offset, new GetCallback<Track>() {
             @Override
-            public void onLoaded(List<Track> datas) {
-                getCallback.onLoaded(datas);
+            public void onLoaded(List<Track> datas, String nexthref) {
+                getCallback.onLoaded(datas, nexthref);
             }
 
             @Override

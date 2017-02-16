@@ -36,7 +36,7 @@ public class SongLocalDataSource extends AppCompatActivity implements LocalDataS
     private static SongLocalDataSource sSongLocalDataSource;
     private Context mContext;
     private DatabaseManager mDatabaseManager;
-   
+
     private SongLocalDataSource(Context context) {
         this.mContext = context;
         mDatabaseManager = new DatabaseManager(context);
@@ -68,7 +68,7 @@ public class SongLocalDataSource extends AppCompatActivity implements LocalDataS
             tracksList.add(track);
         }
         cursor.close();
-        getCallback.onLoaded(tracksList);
+        getCallback.onLoaded(tracksList, null);
     }
 
     @Override

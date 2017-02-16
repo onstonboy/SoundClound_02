@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SongOfflineContract {
     interface View extends BaseView<Presenter> {
-        void showSongOffline(List<Track> list);
+        void showSongOffline(List<Track> list, String nexthref);
         void onDataNotAvailable();
         void playMusic(int songIndex);
         void verifyPermissions();

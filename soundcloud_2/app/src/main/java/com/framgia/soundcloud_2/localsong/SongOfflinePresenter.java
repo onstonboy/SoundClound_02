@@ -23,8 +23,8 @@ public class SongOfflinePresenter implements SongOfflineContract.Presenter {
     public void getSongOffline() {
         mLocalDataRepository.getDatas(new GetCallback<Track>() {
             @Override
-            public void onLoaded(List<Track> datas) {
-                mView.showSongOffline(datas);
+            public void onLoaded(List<Track> datas, String nexthref) {
+                mView.showSongOffline(datas, nexthref);
             }
 
             @Override

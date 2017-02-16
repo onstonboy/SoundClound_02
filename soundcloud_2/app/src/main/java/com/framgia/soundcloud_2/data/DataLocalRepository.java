@@ -27,13 +27,13 @@ public class DataLocalRepository implements LocalDataSource<Track> {
     public void getDatas(final GetCallback<Track> getCallback) {
         mLocalDataSource.getDatas(new GetCallback<Track>() {
             @Override
-            public void onNotAvailable() {
-                getCallback.onNotAvailable();
+            public void onLoaded(List<Track> datas, String nexthref) {
+                getCallback.onLoaded(datas, nexthref);
             }
 
             @Override
-            public void onLoaded(List<Track> datas) {
-                getCallback.onLoaded(datas);
+            public void onNotAvailable() {
+                getCallback.onNotAvailable();
             }
         });
     }

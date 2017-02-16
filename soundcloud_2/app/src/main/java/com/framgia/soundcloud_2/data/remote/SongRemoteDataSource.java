@@ -63,7 +63,7 @@ public class SongRemoteDataSource implements SongDataSource<Track> {
                     for (CollectionTrack collectionTrack : response.body().getTracksList()) {
                         list.add(collectionTrack.getTrack());
                     }
-                    getCallback.onLoaded(list);
+                    getCallback.onLoaded(list, response.body().getNextHref());
                 }
 
                 @Override
@@ -91,8 +91,7 @@ public class SongRemoteDataSource implements SongDataSource<Track> {
                     getCallback.onNotAvailable();
                     return;
                 }
-                getCallback
-                    .onLoaded(response.body().getTracks());
+                getCallback.onLoaded(response.body().getTracks(), response.body().getNextHref());
             }
 
             @Override

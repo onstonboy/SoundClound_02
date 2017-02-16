@@ -24,13 +24,14 @@ import butterknife.ButterKnife;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_IMAGE_URL;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_TITLE;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_USER_NAME;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_GET_SONG_STATE;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_NEXT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PAUSE;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PREVIOUS;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_STOP;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SONG;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_CONTROL;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SONG;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_MEDIA_STATE;
 
 /**
@@ -71,6 +72,7 @@ public abstract class BasePlayerActivity extends AppCompatActivity implements Ba
     @Override
     public void start() {
         displayControl(false);
+        getSongState();
         setStateIcon(mState);
         registerBroadcast();
         mPreviousButton.setOnClickListener(this);
@@ -142,6 +144,13 @@ public abstract class BasePlayerActivity extends AppCompatActivity implements Ba
         Intent intent = new Intent(getApplicationContext(), PlayerService.class);
         intent.setAction(action);
         getApplicationContext().startService(intent);
+    }
+
+    private void getSongState() {
+        if (!PlayerService.checkServiceRunning(PlayerService.class, this)) return;
+        Intent intent = new Intent(getApplicationContext(), PlayerService.class);
+        intent.setAction(ACTION_GET_SONG_STATE);
+        startService(intent);
     }
 
     @Override
