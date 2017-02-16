@@ -3,6 +3,7 @@ package com.framgia.soundcloud_2.songs;
 import android.support.annotation.NonNull;
 
 import com.framgia.soundcloud_2.data.GetCallback;
+import com.framgia.soundcloud_2.data.LocalDataSource;
 import com.framgia.soundcloud_2.data.SongDataSource;
 import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.Track;
@@ -12,12 +13,14 @@ import java.util.List;
 public class ListSongPresenter implements ListSongContract.Presenter {
     private ListSongContract.View mView;
     private SongDataSource mSongDataSource;
+    private LocalDataSource mLocalDataSource;
 
     public ListSongPresenter(@NonNull ListSongContract.View listSongView,
-                             SongDataSource songDataSource) {
+                             SongDataSource songDataSource, LocalDataSource localDataSource) {
         mView = listSongView;
         mView.setPresenter(this);
         mSongDataSource = songDataSource;
+        mLocalDataSource = localDataSource;
     }
 
     @Override
@@ -60,6 +63,16 @@ public class ListSongPresenter implements ListSongContract.Presenter {
     public void getSong(Category category, String query, int offset) {
         if (category == null) getSongFromSearch(query, offset);
         else getSongFromApi(category, offset);
+    }
+
+    @Override
+    public void clearListSong() {
+        mLocalDataSource.clearListTrack();
+    }
+
+    @Override
+    public void addListSong(List<Track> list) {
+        mLocalDataSource.addListTrackLocal(list);
     }
 
     @Override

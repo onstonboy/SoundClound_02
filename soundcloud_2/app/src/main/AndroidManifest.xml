@@ -24,6 +24,7 @@
             android:parentActivityName=".main.MainActivity"/>
 
         <service android:name=".service.PlayerService"/>
+        <activity android:name=".detailplayer.DetailPlayerActivity"/>
     </application>
 
 </manifest>

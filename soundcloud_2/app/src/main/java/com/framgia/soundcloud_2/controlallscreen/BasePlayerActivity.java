@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.framgia.soundcloud_2.R;
+import com.framgia.soundcloud_2.detailplayer.DetailPlayerActivity;
 import com.framgia.soundcloud_2.service.PlayerService;
 import com.squareup.picasso.Picasso;
 
@@ -156,7 +157,7 @@ public abstract class BasePlayerActivity extends AppCompatActivity implements Ba
                 startService(ACTION_NEXT);
                 break;
             case R.id.control_contain:
-                //TODO : Start main player
+                startActivity(new Intent(this, DetailPlayerActivity.class));
                 break;
             default:
                 break;

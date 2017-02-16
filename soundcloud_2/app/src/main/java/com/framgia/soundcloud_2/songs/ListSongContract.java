@@ -10,6 +10,7 @@ import java.util.List;
 public interface ListSongContract {
     interface View extends BaseView<Presenter> {
         void showSong(List<Track> list);
+        void playSong(int songIndex);
         void showError();
         void checkPermissionDownload();
         void showProgress(boolean show);
@@ -20,5 +21,7 @@ public interface ListSongContract {
         void getSongFromApi(Category category, int offset);
         void getSongFromSearch(String query, int offset);
         void getSong(Category category, String query, int offset);
+        void clearListSong();
+        void addListSong(List<Track> list);
     }
 }
