@@ -37,4 +37,14 @@ public class DataLocalRepository implements LocalDataSource<Track> {
             }
         });
     }
+
+    @Override
+    public void clearListTrack() {
+        mLocalDataSource.clearListTrack();
+    }
+
+    @Override
+    public void addListTrackLocal(List<Track> list) {
+        mLocalDataSource.addListTrackLocal(list);
+    }
 }

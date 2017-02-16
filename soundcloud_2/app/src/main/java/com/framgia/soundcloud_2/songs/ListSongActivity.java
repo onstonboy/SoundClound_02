@@ -19,10 +19,14 @@ import android.widget.Toast;
 
 import com.framgia.soundcloud_2.R;
 import com.framgia.soundcloud_2.adapter.SongOnlineAdapter;
+import com.framgia.soundcloud_2.controlallscreen.BasePlayerActivity;
+import com.framgia.soundcloud_2.data.DataLocalRepository;
 import com.framgia.soundcloud_2.data.SongRepository;
 import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.Track;
+import com.framgia.soundcloud_2.service.PlayerService;
 import com.framgia.soundcloud_2.service.SongDownloadManager;
+import com.framgia.soundcloud_2.utils.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +36,12 @@ import butterknife.ButterKnife;
 
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_QUERY;
 import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY_NEW_SONG;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_CATEGORY;
 import static com.framgia.soundcloud_2.utils.Constant.RequestCode.REQUEST_CODE_WRITE_EXTERNAL_STORAGE;
+import static com.framgia.soundcloud_2.utils.StorePreferences.storeAudioIndex;
 
-public class ListSongActivity extends AppCompatActivity implements ListSongContract.View,
+public class ListSongActivity extends BasePlayerActivity implements ListSongContract.View,
     SongOnlineAdapter.ItemClickListener {
     @BindView(R.id.recycle_listsong)
     RecyclerView mRecyclerView;
@@ -70,7 +76,8 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_song);
-        setPresenter(new ListSongPresenter(this, SongRepository.getInstance(this)));
+        setPresenter(new ListSongPresenter(this, SongRepository.getInstance(this),
+            DataLocalRepository.getInstance(this)));
         ButterKnife.bind(this);
         mPresenter.start();
     }
@@ -120,8 +127,8 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
                         .findFirstVisibleItemPosition();
                     if (mUserScrolled
                         && (mVisibleItemCount + mPastVisiblesItems) == mTotalItemCount) {
-                        mUserScrolled = false;
                         mPresenter.getSong(mCategory, mQuery, mOffSet);
+                        mUserScrolled = false;
                     }
                 }
             });
@@ -131,7 +138,18 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
     public void showSong(List<Track> list) {
         if (list == null) return;
         mTracks.addAll(list);
+        mOffSet += Integer.parseInt(VALUE_LIMIT);
         mSongOnlineAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void playSong(int songIndex) {
+        mPresenter.clearListSong();
+        mPresenter.addListSong(mTracks);
+        storeAudioIndex(getApplicationContext(), songIndex);
+        Intent intent = new Intent(getApplicationContext(), PlayerService.class);
+        intent.setAction(ACTION_PLAY_NEW_SONG);
+        startService(intent);
     }
 
     @Override
@@ -173,6 +191,7 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
 
     @Override
     public void start() {
+        super.start();
         initView();
         getIntentData();
         setupToolbar();
@@ -181,7 +200,7 @@ public class ListSongActivity extends AppCompatActivity implements ListSongContr
 
     @Override
     public void onClick(int position) {
-        // TODO : item click
+        playSong(position);
     }
 
     @Override

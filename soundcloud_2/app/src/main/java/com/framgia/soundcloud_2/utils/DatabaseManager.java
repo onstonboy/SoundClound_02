@@ -78,7 +78,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 values.put(COLUMN_ARTWORK_URL, track.getArtworkUrl());
                 values.put(COLUMN_DOWNLOADABLE, track.isDownloadAble() ? TRUE : FALSE);
                 values.put(COLUMN_DURATION, track.getDuration());
-                values.put(COLUMN_URI, track.getUri());
+                values.put(COLUMN_URI, track.getFullUri());
                 values.put(COLUMN_USER, track.getUser().getUserName());
                 values.put(COLUMN_PLAYBACK_COUNT, track.getPlaybackCount());
                 mDatabase.insertOrThrow(TABLE_TRACK, null, values);
