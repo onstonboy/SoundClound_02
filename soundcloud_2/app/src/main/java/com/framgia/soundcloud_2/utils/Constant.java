@@ -61,11 +61,14 @@ public class Constant {
         public static final String EXTRA_FULL_DURATION = "fullduration";
         public static final String ACTION_UPDATE_CONTROL =
             "com.soundcloud_2.action.ACTION_UPDATE_CONTROL";
-        public static final String ACTION_UPDATE_CONTROL_DURATION = "ACTION_UPDATE_CONTROL_DURATION";
+        public static final String ACTION_UPDATE_CONTROL_DURATION =
+            "ACTION_UPDATE_CONTROL_DURATION";
         public static final String ACTION_PLAY_NEW_SONG =
             "com.soundcloud_2.action.ACTION_PLAY_NEW_SONG";
-        public static final String ACTION_UPDATE_SONG = "com.soundcloud_2.action.ACTION_UPDATE_SONG";
-        public static final String ACTION_UPDATE_SONG_DURATION = "com.soundcloud_2.action.ACTION_UPDATE_SONG_DURATION";
+        public static final String ACTION_UPDATE_SONG =
+            "com.soundcloud_2.action.ACTION_UPDATE_SONG";
+        public static final String ACTION_UPDATE_SONG_DURATION =
+            "com.soundcloud_2.action.ACTION_UPDATE_SONG_DURATION";
         public static final String ACTION_PLAY = "com.soundcloud_2.action.ACTION_PLAY";
         public static final String ACTION_PAUSE = "com.soundcloud_2.action.ACTION_PAUSE";
         public static final String ACTION_STOP = "com.soundcloud_2.action.ACTION_STOP";
