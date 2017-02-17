@@ -28,9 +28,9 @@ public class ListSongPresenter implements ListSongContract.Presenter {
         mView.showProgress(true);
         mSongDataSource.getDatas(category, offset, new GetCallback<Track>() {
             @Override
-            public void onLoaded(List<Track> datas) {
+            public void onLoaded(List<Track> datas, String nexthref) {
                 mView.showProgress(false);
-                mView.showSong(datas);
+                mView.showSong(datas, nexthref);
             }
 
             @Override
@@ -46,9 +46,9 @@ public class ListSongPresenter implements ListSongContract.Presenter {
         mView.showProgress(true);
         mSongDataSource.searchData(query, offset, new GetCallback<Track>() {
             @Override
-            public void onLoaded(List<Track> datas) {
+            public void onLoaded(List<Track> datas, String nexthref) {
                 mView.showProgress(false);
-                mView.showSong(datas);
+                mView.showSong(datas, nexthref);
             }
 
             @Override
@@ -60,7 +60,8 @@ public class ListSongPresenter implements ListSongContract.Presenter {
     }
 
     @Override
-    public void getSong(Category category, String query, int offset) {
+    public void getSong(Category category, String query, boolean canLoadMore, int offset) {
+        if (!canLoadMore) return;
         if (category == null) getSongFromSearch(query, offset);
         else getSongFromApi(category, offset);
     }

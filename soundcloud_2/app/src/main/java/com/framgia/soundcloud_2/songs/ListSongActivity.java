@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +25,6 @@ import com.framgia.soundcloud_2.data.model.Category;
 import com.framgia.soundcloud_2.data.model.Track;
 import com.framgia.soundcloud_2.service.PlayerService;
 import com.framgia.soundcloud_2.service.SongDownloadManager;
-import com.framgia.soundcloud_2.utils.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +55,7 @@ public class ListSongActivity extends BasePlayerActivity implements ListSongCont
     private int mPastVisiblesItems;
     private int mVisibleItemCount;
     private int mTotalItemCount;
+    private boolean mCanLoadMore = true;
     private boolean mUserScrolled = true;
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -127,16 +126,17 @@ public class ListSongActivity extends BasePlayerActivity implements ListSongCont
                         .findFirstVisibleItemPosition();
                     if (mUserScrolled
                         && (mVisibleItemCount + mPastVisiblesItems) == mTotalItemCount) {
-                        mPresenter.getSong(mCategory, mQuery, mOffSet);
                         mUserScrolled = false;
+                        mPresenter.getSong(mCategory, mQuery, mCanLoadMore, mOffSet);
                     }
                 }
             });
     }
 
     @Override
-    public void showSong(List<Track> list) {
+    public void showSong(List<Track> list, String nexthref) {
         if (list == null) return;
+        if (nexthref == null) mCanLoadMore = false;
         mTracks.addAll(list);
         mOffSet += Integer.parseInt(VALUE_LIMIT);
         mSongOnlineAdapter.notifyDataSetChanged();
@@ -195,7 +195,7 @@ public class ListSongActivity extends BasePlayerActivity implements ListSongCont
         initView();
         getIntentData();
         setupToolbar();
-        mPresenter.getSong(mCategory, mQuery, mOffSet);
+        mPresenter.getSong(mCategory, mQuery, mCanLoadMore, mOffSet);
     }
 
     @Override

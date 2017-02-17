@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.VALUE_LIMIT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY_NEW_SONG;
 import static com.framgia.soundcloud_2.utils.StorePreferences.storeAudioIndex;
 
@@ -68,7 +69,7 @@ public class LocalSongsFragment extends Fragment
     }
 
     @Override
-    public void showSongOffline(List<Track> list) {
+    public void showSongOffline(List<Track> list, String nexthref) {
         if (list == null) return;
         mTracks.clear();
         mTracks.addAll(list);

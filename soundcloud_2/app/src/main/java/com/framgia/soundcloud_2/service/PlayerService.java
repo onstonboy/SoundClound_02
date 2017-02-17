@@ -1,5 +1,6 @@
 package com.framgia.soundcloud_2.service;
 
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -32,26 +33,26 @@ import static com.framgia.soundcloud_2.utils.Constant.ConstantApi.EXTRA_USER_NAM
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_BACKWARD;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_FORWARD;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_GET_SONG_STATE;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_NEXT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_NO_REPEAT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_NO_SHUFFLE;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PAUSE;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY_NEW_SONG;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PREVIOUS;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_REPEAT;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_SEEK_TO;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_SHUFFLE;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SONG;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SONG_DURATION;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_CONTROL;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_NEXT;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PAUSE;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PLAY;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_PREVIOUS;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_STOP;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_CONTROL;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_CONTROL_DURATION;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SEEK_BAR;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_DURATION;
-import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_FULL_DURATION;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SONG;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.ACTION_UPDATE_SONG_DURATION;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_BACKWARD;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_DURATION;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_FORWARD;
+import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_FULL_DURATION;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_MEDIA_STATE;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_REPEAT_STATE;
 import static com.framgia.soundcloud_2.utils.Constant.KeyIntent.EXTRA_SHUFFLE_STATE;
@@ -462,6 +463,18 @@ public class PlayerService extends Service implements MediaPlayer.OnCompletionLi
             mBitmap = bitmap;
             buildNotification(SongStatus.PLAYING);
         }
+    }
+
+    public static boolean checkServiceRunning(Class<?> serviceClass, Context context) {
+        ActivityManager manager =
+            (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager
+            .getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

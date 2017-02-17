@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ListSongContract {
     interface View extends BaseView<Presenter> {
-        void showSong(List<Track> list);
+        void showSong(List<Track> list, String nexthref);
         void playSong(int songIndex);
         void showError();
         void checkPermissionDownload();
@@ -20,7 +20,7 @@ public interface ListSongContract {
     interface Presenter extends BasePresenter {
         void getSongFromApi(Category category, int offset);
         void getSongFromSearch(String query, int offset);
-        void getSong(Category category, String query, int offset);
+        void getSong(Category category, String query,boolean canLoadMore, int offset);
         void clearListSong();
         void addListSong(List<Track> list);
     }
